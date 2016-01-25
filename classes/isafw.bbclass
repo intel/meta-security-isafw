@@ -50,6 +50,11 @@ python do_analysesource() {
     recipe.version = d.getVar('PV', True)
     recipe.version = recipe.version.split('+git', 1)[0]
 
+    recipe.r_deps = d.getVar('RDEPENDS_' + recipe.name, True)
+    recipe.b_deps = (d.getVar('DEPENDS', True)).split()
+    bb.warn('RDEPENDS %s' % recipe.r_deps)
+    bb.warn('DEPENDS %s' % recipe.b_deps)
+
     licenses = d.getVar('LICENSE', True)
     licenses = licenses.replace("(", "")
     licenses = licenses.replace(")", "")
@@ -68,6 +73,8 @@ python do_analysesource() {
     if aliases:
         recipe.aliases = aliases.split()
         faliases = []
+        if (recipe.name == "linux-yocto"):
+            faliases.append("linux_kernel")
         for a in recipe.aliases:
             if (a != "OSPDT") and (not (a.startswith("upstream="))):
                 faliases.append(a.split('=', 1)[-1])

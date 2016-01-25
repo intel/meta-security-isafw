@@ -47,6 +47,8 @@ class ISA_package:
     name = ""                     # pkg name                            (mandatory argument)
     version = ""                  # full version                        (mandatory argument)
     licenses = []                 # list of licences for all subpackages
+    r_deps = []                   # list of run-time dependencies
+    b_deps = []                   # list of build-time dependencies
     aliases = []                  # list of alias names for packages if exist
     source_files = []             # list of strings of source files 
     patch_files = []              # list of patch files to be applied
