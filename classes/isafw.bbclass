@@ -50,7 +50,9 @@ python do_analysesource() {
     recipe.version = d.getVar('PV', True)
     recipe.version = recipe.version.split('+git', 1)[0]
 
-    recipe.r_deps = d.getVar('RDEPENDS_' + recipe.name, True)
+    bb.build.exec_func("read_subpackage_metadata", d)
+    for p in d.getVar('PACKAGES', True).split():
+        recipe.r_deps.append(p + ": " + str(d.getVar('RDEPENDS_' + p, True)))
     recipe.b_deps = (d.getVar('DEPENDS', True)).split()
     bb.warn('RDEPENDS %s' % recipe.r_deps)
     bb.warn('DEPENDS %s' % recipe.b_deps)
@@ -99,7 +101,7 @@ python do_analysesource() {
     return
 }
 
-addtask do_analysesource after do_unpack before do_build
+addtask do_analysesource after do_unpack do_packagedata do_package before do_build
 
 # This task intended to be called after default task to process reports
 
