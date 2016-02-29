@@ -157,7 +157,6 @@ class ISA_KernelChecker():
         self.problems_report_name = ISA_config.reportdir + "/kca_problems_report_" + ISA_config.machine + "_" + ISA_config.timestamp
         self.full_reports = ISA_config.full_reports
         self.initialized = True
-        print("Plugin ISA_KernelChecker initialized!")
         with open(self.logfile, 'w') as flog:
             flog.write("\nPlugin ISA_KernelChecker initialized!\n")
 
@@ -191,13 +190,12 @@ class ISA_KernelChecker():
                 self.write_problems_report(ISA_kernel)
 
             else:
-                print("Mandatory arguments such as image name and path to config are not provided!")
-                print("Not performing the call.")
                 with open(self.logfile, 'a') as flog:
                     flog.write("Mandatory arguments such as image name and path to config are not provided!\n")
                     flog.write("Not performing the call.\n")
         else:
-            print("Plugin hasn't initialized! Not performing the call.")    
+            with open(self.logfile, 'a') as flog:
+                flog.write("Plugin hasn't initialized! Not performing the call!\n")
 
     def write_full_report(self, ISA_kernel):
         if self.full_reports :      
@@ -270,7 +268,7 @@ class ISA_KernelChecker():
                         freport.write(key + ' : ' + str(self.security_kco[key]) + '\n')
                         freport.write("Recommended value:\n")
                         freport.write(key + ' : ' + str(self.security_kco_ref[key]) + '\n')
-                        freport.write("\nIntegrity options that need improvement:\n")
+            freport.write("\nIntegrity options that need improvement:\n")
             for key in sorted(self.integrity_kco):
                 if (self.integrity_kco[key] != self.integrity_kco_ref[key]) :
                     valid = False
