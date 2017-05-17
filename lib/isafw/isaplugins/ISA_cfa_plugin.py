@@ -56,7 +56,6 @@ class ISA_CFChecker():
     no_mpx = []
 
     def __init__(self, ISA_config):
-        self.proxy = ISA_config.proxy
         self.logfile = ISA_config.logdir + "/isafw_cfalog"
         self.full_report_name = ISA_config.reportdir + "/cfa_full_report_" + \
             ISA_config.machine + "_" + ISA_config.timestamp
