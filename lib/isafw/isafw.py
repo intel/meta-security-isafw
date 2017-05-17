@@ -104,7 +104,6 @@ class ISA_filesystem:
 class ISA_config:
     plugin_whitelist = ""         # comma separated list of plugins to whitelist
     plugin_blacklist = ""         # comma separated list of plugins to blacklist
-    proxy = ""                    # proxy settings
     cacert = None                 # If set, a CA certificate file that replaces the system default one
     reportdir = ""                # location of produced reports
     logdir = ""                   # location of produced logs

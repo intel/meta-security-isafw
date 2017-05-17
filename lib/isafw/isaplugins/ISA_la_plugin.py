@@ -43,7 +43,6 @@ class ISA_LicenseChecker():
     rpm_present = False
 
     def __init__(self, ISA_config):
-        self.proxy = ISA_config.proxy
         self.logfile = ISA_config.logdir + "/isafw_lalog"
         self.unwanted = []
         self.report_name = ISA_config.reportdir + "/la_problems_report_" + \

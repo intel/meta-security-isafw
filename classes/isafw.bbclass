@@ -187,7 +187,6 @@ def isafw_init(isafw, d):
     import re, errno
 
     isafw_config = isafw.ISA_config()
-    isafw_config.proxy = d.getVar('HTTP_PROXY', True)
     # Override the builtin default in curl-native (used by cve-check-tool-native)
     # because that default is a path that may not be valid: when curl-native gets
     # installed from sstate, we end up with the sysroot path as it was on the
@@ -197,9 +196,8 @@ def isafw_init(isafw, d):
     # Can't use ${sysconfdir} here, it already includes ${STAGING_DIR_NATIVE}
     # when the current recipe is native.
     isafw_config.cacert = d.expand('${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt')
-    if not isafw_config.proxy :
-        isafw_config.proxy = d.getVar('http_proxy', True)
-    bb.debug(1, 'isafw: proxy is %s' % isafw_config.proxy)
+
+    bb.utils.export_proxies(d)
 
     isafw_config.machine = d.getVar('MACHINE', True)
     isafw_config.timestamp = d.getVar('DATETIME', True)

@@ -39,7 +39,6 @@ class ISA_CVEChecker:
     cve_tool_present = False
 
     def __init__(self, ISA_config):
-        self.proxy = ISA_config.proxy
         self.cacert = ISA_config.cacert
         self.reportdir = ISA_config.reportdir
         self.timestamp = ISA_config.timestamp
@@ -169,8 +168,6 @@ class ISA_CVEChecker:
         args = ""
         result = ""
         tool_stderr_value = ""
-        if self.proxy:
-            args += "https_proxy=%s http_proxy=%s " % (self.proxy, self.proxy)
         args += "cve-check-tool "
         if self.cacert:
             args += "--cacert '%s' " % self.cacert
@@ -183,7 +180,7 @@ class ISA_CVEChecker:
             flog.write("Args: " + args)
         try:
             popen = subprocess.Popen(
-                args, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                args, shell=True, env=os.environ, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             result = popen.communicate()
         except:
             tool_stderr_value = "Error in executing cve-check-tool" + str(sys.exc_info())

@@ -42,7 +42,6 @@ class ISA_KernelChecker():
     initialized = False
 
     def __init__(self, ISA_config):
-        self.proxy = ISA_config.proxy
         self.logfile = ISA_config.logdir + "/isafw_kcalog"
         self.full_report_name = ISA_config.reportdir + "/kca_full_report_" + \
             ISA_config.machine + "_" + ISA_config.timestamp
